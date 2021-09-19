@@ -39,7 +39,6 @@ jobs:
 
         page_tables:
           - physical_page_tables
-          - recursive_page_tables
 
         allocator:
           - linked_list_allocation

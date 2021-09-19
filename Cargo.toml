@@ -15,7 +15,8 @@ default-members = [".", "utility_crates/*"]
 default = ["physical_page_tables", "linked_list_allocation"]
 
 physical_page_tables = ["bootloader/map_physical_memory"]
-recursive_page_tables = ["bootloader/recursive_page_table"]
+# TODO: eventually support recursive page tables
+#recursive_page_tables = ["bootloader/recursive_page_table"]
 
 linked_list_allocation = ["linked_list_allocator"]
 bump_allocation = []
