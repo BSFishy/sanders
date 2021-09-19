@@ -76,10 +76,10 @@ jobs:
           cargo -Vv
 
       - name: Install bootimage
-        uses: actions-rs/cargo@v1
+        uses: actions-rs/install@v0.1
         with:
-          command: install
-          args: --version 0.10.3 bootimage
+          crate: bootimage
+          version: 0.10.3
 
       - name: Generate build (debug)
         if: matrix.profile == 'debug'
