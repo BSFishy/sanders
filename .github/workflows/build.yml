@@ -186,6 +186,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Cache (Cargo)
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: Cargo-lint-${{ hashFiles('**/Cargo.lock') }}
+
       - name: Setup Rust
         uses: actions-rs/toolchain@v1
         with:
