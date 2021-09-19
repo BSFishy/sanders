@@ -1,8 +1,8 @@
 //! TODO(BSFishy): document this
 // TODO: convert this into a module that allows for other architectures
 
-pub mod pic;
 pub mod idt;
+pub mod pic;
 
 /// TODO(BSFishy): document this
 pub fn init() {

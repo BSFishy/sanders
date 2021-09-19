@@ -5,7 +5,7 @@ use spin;
 use x86_64::structures::idt::{InterruptDescriptorTable, InterruptStackFrame};
 
 #[cfg(debug_assertions)]
-use {sanders_vga_buffer::print, lazy_static::lazy_static};
+use {lazy_static::lazy_static, sanders_vga_buffer::print};
 
 /// TODO(BSFishy): document this
 pub const PIC_1_OFFSET: u8 = 32;

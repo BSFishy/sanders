@@ -2,9 +2,9 @@
 #![no_main]
 #![allow(dead_code)]
 
+use bootloader::{entry_point, BootInfo};
 use core::panic::PanicInfo;
 use sanders::{handle_panic, init, interrupts};
-use bootloader::{BootInfo, entry_point};
 
 #[cfg(debug_assertions)]
 use sanders_vga_buffer::println;

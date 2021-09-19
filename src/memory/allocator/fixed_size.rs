@@ -1,8 +1,11 @@
 //! TODO(BSFishy): document this
 
-use alloc::alloc::{Layout, GlobalAlloc};
-use core::{ptr::{self, NonNull}, mem};
 use super::locked::Locked;
+use alloc::alloc::{GlobalAlloc, Layout};
+use core::{
+    mem,
+    ptr::{self, NonNull},
+};
 
 /// The block sizes to use.
 ///
@@ -71,8 +74,7 @@ unsafe impl GlobalAlloc for Locked<FixedSizeBlockAllocator> {
                         let block_size = BLOCK_SIZES[index];
                         // only works if all block sizes are a power of 2
                         let block_align = block_size;
-                        let layout = Layout::from_size_align(block_size, block_align)
-                            .unwrap();
+                        let layout = Layout::from_size_align(block_size, block_align).unwrap();
                         allocator.fallback_alloc(layout)
                     }
                 }
