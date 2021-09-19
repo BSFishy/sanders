@@ -16,7 +16,7 @@ We strongly recommend you read through that series, as it has a plethora of good
 s&ers code is thoroughly documented and gives numerous examples and notes.
 You can read through the code to read it, check out the generated [rustdoc](https://doc.rust-lang.org/rustdoc/what-is-rustdoc.html) documentation (TODO: generate this and host it somewhere), or read through our documentation directory.
 
-The [docs](./docs) directory contains extensive documentation on numerous topics, including but not limited to project structure and management, safety of the code in s&ers, and systems development in Rust.
+The [docs](./docs/readme.md) directory contains extensive documentation on numerous topics, including but not limited to project structure and management, safety of the code in s&ers, and systems development in Rust.
 If you would like to read more in-depth information about anything related to s&ers, feel free to read through that directory.
 
 ## Usage
