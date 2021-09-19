@@ -3,7 +3,23 @@ name: Build
 
 on:
   push:
+    paths-ignore:
+      - '.github/**'
+      - '!.github/workflows/**'
+      - '.gitignore'
+      - 'docs/**'
+      - 'CODE_OF_CONDUCT.md'
+      - 'LICENSE'
+      - 'readme.md'
   pull_request:
+    paths-ignore:
+      - '.github/**'
+      - '!.github/workflows/**'
+      - '.gitignore'
+      - 'docs/**'
+      - 'CODE_OF_CONDUCT.md'
+      - 'LICENSE'
+      - 'readme.md'
 
 jobs:
   build:
