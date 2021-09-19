@@ -67,7 +67,7 @@ pub fn exit_qemu(exit_code: QemuExitCode) {
 /// TODO(BSFishy): document this
 pub trait Testable {
     /// TODO(BSFishy): document this
-    fn run(&self) -> ();
+    fn run(&self);
 }
 
 impl<T> Testable for T

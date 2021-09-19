@@ -28,6 +28,8 @@ pub fn init(boot_info: &'static BootInfo) {
 
 /// Initialize a new OffsetPageTable.
 ///
+/// # Safety
+///
 /// This function is unsafe because the caller must guarantee that the
 /// complete physical memory is mapped to virtual memory at the passed
 /// `physical_memory_offset`. Also, this function must be only called once
@@ -36,9 +38,8 @@ pub unsafe fn init_mapper(physical_memory_offset: VirtAddr) -> OffsetPageTable<'
     #[cfg(debug_assertions)]
     {
         // Debug assertion to guarantee that the memory mapper is not initialized multiple times
-        debug_assert_eq!(
-            *INITIALIZED.lock(),
-            false,
+        debug_assert!(
+            !(*INITIALIZED.lock()),
             "Memory must only be initialized once"
         );
 
@@ -55,6 +56,8 @@ fn alloc_error_handler(layout: alloc::alloc::Layout) -> ! {
 }
 
 /// Returns a mutable reference to the active level 4 table.
+///
+/// # Safety
 ///
 /// This function is unsafe because the caller must guarantee that the
 /// complete physical memory is mapped to virtual memory at the passed
@@ -74,6 +77,8 @@ unsafe fn active_level_4_table(physical_memory_offset: VirtAddr) -> &'static mut
 
 /// Translates the given virtual address to the mapped physical address, or
 /// `None` if the address is not mapped.
+///
+/// # Safety
 ///
 /// This function is unsafe because the caller must guarantee that the
 /// complete physical memory is mapped to virtual memory at the passed

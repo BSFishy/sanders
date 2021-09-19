@@ -9,6 +9,7 @@
 #![test_runner(sanders_testing::test_runner)]
 #![reexport_test_harness_main = "test_main"]
 #![allow(dead_code)]
+#![allow(clippy::empty_loop)]
 #![deny(missing_docs)]
 #![deny(missing_doc_code_examples)]
 
