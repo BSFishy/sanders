@@ -1,5 +1,4 @@
 //! TODO(BSFishy): document this
-// TODO: convert this into a module that allows for other architectures
 
 pub mod idt;
 pub mod pic;
@@ -12,6 +11,7 @@ pub fn init() {
 /// TODO(BSFishy): document this
 pub fn hlt_loop() -> ! {
     loop {
+        // TODO: make this support multiple architectures
         x86_64::instructions::hlt();
     }
 }
