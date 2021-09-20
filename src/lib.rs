@@ -43,7 +43,14 @@ pub fn init(boot_info: &'static BootInfo) {
     gdt::init();
     interrupts::init();
     unsafe { interrupts::pic::PICS.lock().initialize() };
-    x86_64::instructions::interrupts::enable(); // TODO: abstract this away to allow for multiple architectures
+
+    cfg_if::cfg_if! {
+        if #[cfg(target_arch = "x86_64")] {
+            x86_64::instructions::interrupts::enable();
+        } else {
+            compile_error!("Unsupported architecture");
+        }
+    }
 
     memory::init(boot_info);
 }

@@ -56,12 +56,19 @@ pub enum QemuExitCode {
 
 /// TODO(BSFishy): document this
 pub fn exit_qemu(exit_code: QemuExitCode) {
-    use x86_64::instructions::port::Port;
+    cfg_if::cfg_if! {
+        if #[cfg(target_arch = "x86_64")] {
+            use x86_64::instructions::port::Port;
 
-    unsafe {
-        let mut port = Port::new(0xf4);
-        port.write(exit_code as u32);
+            unsafe {
+                let mut port = Port::new(0xf4);
+                port.write(exit_code as u32);
+            }
+        } else {
+            compile_error!("Unsupported architecture");
+        }
     }
+
 }
 
 /// TODO(BSFishy): document this

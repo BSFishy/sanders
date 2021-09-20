@@ -1,11 +1,14 @@
 //! TODO(BSFishy): document this
 //! NOTE: it is important to keep in mind possible deadlocks in the functions in this file.
+//! TODO: convert this module into an abstraction layer in front of architecture-specific code
 
 use crate::{
     gdt,
     interrupts::{hlt_loop, pic},
 };
 use lazy_static::lazy_static;
+
+
 use x86_64::structures::idt::{InterruptDescriptorTable, InterruptStackFrame, PageFaultErrorCode};
 
 #[cfg(debug_assertions)]

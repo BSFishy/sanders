@@ -39,14 +39,21 @@ lazy_static! {
 #[doc(hidden)]
 pub fn _print(args: ::core::fmt::Arguments) {
     use core::fmt::Write;
-    use x86_64::instructions::interrupts;
 
-    interrupts::without_interrupts(|| {
-        SERIAL1
-            .lock()
-            .write_fmt(args)
-            .expect("Printing to serial failed");
-    });
+    cfg_if::cfg_if! {
+        if #[cfg(target_arch = "x86_64")] {
+            use x86_64::instructions::interrupts;
+
+            interrupts::without_interrupts(|| {
+                SERIAL1
+                    .lock()
+                    .write_fmt(args)
+                    .expect("Printing to serial failed");
+            });
+        } else {
+            compile_error!("Unsupported architecture");
+        }
+    }
 }
 
 /// Print to serial port 1.

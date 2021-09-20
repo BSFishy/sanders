@@ -1,5 +1,5 @@
 //! TODO(BSFishy): document this
-// TODO: convert this into a module that allows for other architectures
+//! TODO: convert this module into an abstraction layer in front of architecture-specific code
 
 use lazy_static::lazy_static;
 use x86_64::{

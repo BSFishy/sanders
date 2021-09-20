@@ -1,4 +1,5 @@
 //! TODO(BSFishy): document this
+//! TODO: convert this module into an abstraction layer in front of architecture-specific code
 
 use pic8259::ChainedPics;
 use spin;

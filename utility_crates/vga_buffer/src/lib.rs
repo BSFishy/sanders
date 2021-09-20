@@ -238,11 +238,18 @@ macro_rules! eprintln {
 #[doc(hidden)]
 pub fn _print(args: fmt::Arguments) {
     use core::fmt::Write;
-    use x86_64::instructions::interrupts;
 
-    interrupts::without_interrupts(|| {
-        WRITER.lock().write_fmt(args).unwrap();
-    });
+    cfg_if::cfg_if! {
+        if #[cfg(target_arch = "x86_64")] {
+            use x86_64::instructions::interrupts;
+
+            interrupts::without_interrupts(|| {
+                WRITER.lock().write_fmt(args).unwrap();
+            });
+        } else {
+            compile_error!("Unsupported architecture");
+        }
+    }
 }
 
 #[cfg(test)]
@@ -261,6 +268,7 @@ mod tests {
         }
     }
 
+    #[cfg(target_arch = "x86_64")]
     #[test_case]
     fn test_println_output() {
         use core::fmt::Write;

@@ -1,5 +1,6 @@
 //! TODO(BSFishy): document this
 //! TODO: implement some allocators from https://wiki.osdev.org/Memory_Allocation#Choosing_a_Memory_Allocator
+//! TODO: convert this module into an abstraction layer in front of architecture-specific code
 
 use bootloader::bootinfo::{MemoryMap, MemoryRegionType};
 use x86_64::{

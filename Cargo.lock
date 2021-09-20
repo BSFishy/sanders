@@ -91,6 +91,7 @@ dependencies = [
 name = "sanders_serial"
 version = "0.1.0"
 dependencies = [
+ "cfg-if",
  "lazy_static",
  "spin 0.9.2",
  "uart_16550",
@@ -102,6 +103,7 @@ name = "sanders_testing"
 version = "0.1.0"
 dependencies = [
  "bootloader",
+ "cfg-if",
  "sanders_serial",
  "x86_64",
 ]
@@ -111,6 +113,7 @@ name = "sanders_vga_buffer"
 version = "0.1.0"
 dependencies = [
  "bootloader",
+ "cfg-if",
  "lazy_static",
  "sanders_serial",
  "sanders_testing",
