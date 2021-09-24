@@ -5,9 +5,6 @@
 use lazy_static::lazy_static;
 use x86_64::structures::idt::{InterruptDescriptorTable, InterruptStackFrame, PageFaultErrorCode};
 
-#[cfg(debug_assertions)]
-use sanders_vga_buffer::println;
-
 use crate::interrupts::{hlt_loop, pic};
 use crate::memory::gdt;
 
@@ -23,7 +20,11 @@ lazy_static! {
 
 /// TODO(BSFishy): document this
 pub fn init_idt() {
+    log::trace!("Initializing the IDT");
+
     IDT.load();
+
+    log::debug!("Successfully initialized the IDT");
 }
 
 fn prepare_idt(idt: &mut InterruptDescriptorTable) {
@@ -38,8 +39,7 @@ fn prepare_idt(idt: &mut InterruptDescriptorTable) {
 
 #[allow(unused_variables)]
 extern "x86-interrupt" fn breakpoint_handler(stack_frame: InterruptStackFrame) {
-    #[cfg(debug_assertions)]
-    println!("EXCEPTION: BREAKPOINT\n{:#?}", stack_frame);
+    log::error!("BREAKPOINT\n{:#?}", stack_frame);
 }
 
 extern "x86-interrupt" fn double_fault_handler(
@@ -54,15 +54,12 @@ extern "x86-interrupt" fn page_fault_handler(
     stack_frame: InterruptStackFrame,
     error_code: PageFaultErrorCode,
 ) {
-    #[cfg(debug_assertions)]
-    {
-        use x86_64::registers::control::Cr2;
+    use x86_64::registers::control::Cr2;
 
-        println!("EXCEPTION: PAGE FAULT");
-        println!("Accessed Address: {:?}", Cr2::read());
-        println!("Error Code: {:?}", error_code);
-        println!("{:#?}", stack_frame);
-    }
+    log::error!("PAGE FAULT");
+    log::error!("Accessed Address: {:?}", Cr2::read());
+    log::error!("Error Code: {:?}", error_code);
+    log::error!("{:#?}", stack_frame);
 
     hlt_loop();
 }

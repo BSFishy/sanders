@@ -20,17 +20,25 @@ lazy_static! {
 
 /// TODO(BSFishy): document this
 pub fn pre_init() {
+    log::trace!("Pre-initializing memory");
+
     gdt::init();
+
+    log::debug!("Successfully pre-initialized memory");
 }
 
 /// TODO(BSFishy): document this
 pub fn init(boot_info: &'static BootInfo) {
+    log::trace!("Initializing memory");
+
     let physical_memory_offset = VirtAddr::new(boot_info.physical_memory_offset);
     let mut mapper = unsafe { init_mapper(physical_memory_offset) };
     let mut frame_allocator =
         unsafe { allocator::BootInfoFrameAllocator::init(&boot_info.memory_map) };
 
     allocator::init_heap(&mut mapper, &mut frame_allocator).expect("heap initialization failed");
+
+    log::debug!("Successfully initialized memory");
 }
 
 /// Initialize a new OffsetPageTable.

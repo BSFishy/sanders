@@ -5,12 +5,18 @@ pub mod pic;
 
 /// TODO(BSFishy): document this
 pub fn init() {
+    log::trace!("Initializing interrupts");
+
     idt::init_idt();
     unsafe { pic::PICS.lock().initialize() };
+
+    log::debug!("Successfully initialized interrupts");
 }
 
 /// TODO(BSFishy): document this
 pub fn enable() {
+    log::trace!("Enabling interrupts");
+
     cfg_if::cfg_if! {
         if #[cfg(target_arch = "x86_64")] {
             x86_64::instructions::interrupts::enable();
@@ -22,6 +28,8 @@ pub fn enable() {
 
 /// TODO(BSFishy): document this
 pub fn disable() {
+    log::trace!("Disabling interrupts");
+
     cfg_if::cfg_if! {
         if #[cfg(target_arch = "x86_64")] {
             x86_64::instructions::interrupts::disable();

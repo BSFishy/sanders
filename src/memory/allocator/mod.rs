@@ -33,6 +33,8 @@ cfg_if::cfg_if! {
 
 #[inline(always)]
 fn init_allocator() {
+    log::trace!("Initializing the memory allocator");
+
     unsafe {
         cfg_if::cfg_if! {
             if #[cfg(feature = "linked_list_allocation")] {
@@ -46,6 +48,8 @@ fn init_allocator() {
             }
         }
     }
+
+    log::debug!("Successfully initialized the memory allocator");
 }
 
 pub mod locked;
@@ -60,6 +64,8 @@ pub fn init_heap(
     mapper: &mut impl Mapper<Size4KiB>,
     frame_allocator: &mut impl FrameAllocator<Size4KiB>,
 ) -> Result<(), MapToError<Size4KiB>> {
+    log::trace!("Initializing the heap");
+
     let page_range = {
         let heap_start = VirtAddr::new(HEAP_START as u64);
         let heap_end = heap_start + HEAP_SIZE - 1u64;
@@ -77,6 +83,8 @@ pub fn init_heap(
     }
 
     init_allocator();
+
+    log::debug!("Successfully initialized the heap");
 
     Ok(())
 }

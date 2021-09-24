@@ -55,10 +55,14 @@ pub fn init() {
         tables::load_tss,
     };
 
+    log::trace!("Initializing the GDT");
+
     GDT.0.load();
 
     unsafe {
         CS::set_reg(GDT.1.code_selector);
         load_tss(GDT.1.tss_selector);
     }
+
+    log::debug!("Successfully initialized the GDT");
 }
