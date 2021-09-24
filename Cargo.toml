@@ -31,6 +31,7 @@ sanders_testing = { path = "utility_crates/testing", version = "0.1.0" }
 
 # utility dependencies
 bootloader = "0.9.19" # anything higher than this version causes an error with bootimage
+log = "0.4.14"
 
 # code utility dependencies
 cfg-if = "1.0.0"

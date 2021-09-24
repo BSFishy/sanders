@@ -54,6 +54,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "log"
+version = "0.4.14"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "51b9bbe6c47d51fc3e1a9b945965946b4c44142ab8792c50835a980d362c2710"
+dependencies = [
+ "cfg-if",
+]
+
+[[package]]
 name = "pc-keyboard"
 version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -70,7 +79,7 @@ dependencies = [
 
 [[package]]
 name = "privilege_level"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "bit_field",
  "cfg-if",
@@ -85,8 +94,10 @@ dependencies = [
  "cfg-if",
  "lazy_static",
  "linked_list_allocator",
+ "log",
  "pc-keyboard",
  "pic8259",
+ "privilege_level",
  "sanders_serial",
  "sanders_testing",
  "sanders_vga_buffer",
