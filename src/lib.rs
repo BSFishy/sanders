@@ -42,15 +42,7 @@ pub mod process;
 pub fn init(boot_info: &'static BootInfo) {
     gdt::init();
     interrupts::init();
-    unsafe { interrupts::pic::PICS.lock().initialize() };
-
-    cfg_if::cfg_if! {
-        if #[cfg(target_arch = "x86_64")] {
-            x86_64::instructions::interrupts::enable();
-        } else {
-            compile_error!("Unsupported architecture");
-        }
-    }
+    interrupts::enable();
 
     memory::init(boot_info);
 }

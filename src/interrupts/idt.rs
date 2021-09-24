@@ -8,7 +8,6 @@ use crate::{
 };
 use lazy_static::lazy_static;
 
-
 use x86_64::structures::idt::{InterruptDescriptorTable, InterruptStackFrame, PageFaultErrorCode};
 
 #[cfg(debug_assertions)]
