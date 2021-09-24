@@ -21,7 +21,7 @@ use core::panic::PanicInfo;
 #[cfg(test)]
 use {
     bootloader::entry_point,
-    sanders_testing::{exit_qemu, QemuExitCode}
+    sanders_testing::{exit_qemu, QemuExitCode},
 };
 
 #[cfg(test)]
