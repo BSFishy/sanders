@@ -29,6 +29,7 @@ struct KernelLogger;
 
 impl log::Log for KernelLogger {
     fn enabled(&self, _metadata: &Metadata) -> bool {
+        // TODO: enable this if there is at least one driver that supports logs
         cfg_if::cfg_if! {
             if #[cfg(debug_assertions)] {
                 true
@@ -39,6 +40,7 @@ impl log::Log for KernelLogger {
     }
 
     fn log(&self, record: &Record) {
+        // TODO: log to drivers that support it
         cfg_if::cfg_if! {
             if #[cfg(debug_assertions)] {
                 if !self.enabled(record.metadata()) {
