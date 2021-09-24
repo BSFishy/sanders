@@ -1,6 +1,6 @@
 [package]
 name = "privilege_level"
-version = "0.1.0"
+version = "0.1.1"
 description = "Quick and simple access to the current privilege level of the CPU"
 authors = ["Matt Provost <mattprovost6@gmail.com>"]
 edition = "2018"
