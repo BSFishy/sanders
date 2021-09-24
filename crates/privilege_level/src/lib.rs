@@ -234,13 +234,13 @@ pub fn privilege_level() -> PrivilegeLevel {
 
 // TODO: potentially move these sorts of functions to a separate module and just export them?
 #[cfg(any(target_arch = "x86_64", doc))]
-#[doc(cfg(target_arch = "x86_64"))]
+#[cfg_attr(doc, doc(cfg(target_arch = "x86_64")))]
 #[doc(inline)]
 pub use x86_64::PrivilegeLevel as x86_64PrivilegeLevel;
 
 // TODO: potentially move these sorts of functions to a separate module and just export them?
 #[cfg(any(target_arch = "x86_64", doc))]
-#[doc(cfg(target_arch = "x86_64"))]
+#[cfg_attr(doc, doc(cfg(target_arch = "x86_64")))]
 impl<T> From<T> for PrivilegeLevel
 where
     T: Into<x86_64PrivilegeLevel>,
@@ -272,7 +272,7 @@ where
 /// # }
 /// ```
 #[cfg(any(target_arch = "x86_64", doc))]
-#[doc(cfg(target_arch = "x86_64"))]
+#[cfg_attr(doc, doc(cfg(target_arch = "x86_64")))]
 #[inline]
 pub fn x86_64_privilege_level() -> x86_64PrivilegeLevel {
     x86_64PrivilegeLevel::from_u16(raw_privilege_level())
