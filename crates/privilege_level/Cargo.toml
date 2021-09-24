@@ -1,0 +1,19 @@
+[package]
+name = "privilege_level"
+version = "0.1.0"
+description = "Quick and simple access to the current privilege level of the CPU"
+authors = ["Matt Provost <mattprovost6@gmail.com>"]
+edition = "2021"
+keywords = ["privilege level", "ring level", "ring layer", "cpu privilege", "cpu permission"]
+categories = ["embedded", "hardware-support", "no-std"]
+documentation = "https://docs.rs/privilege_level"
+homepage = "https://github.com/BSFishy/sanders/tree/develop/crates/privilege_level"
+repository = "https://github.com/BSFishy/sanders/"
+license-file = "../../LICENSE"
+
+[dependencies]
+bit_field = "0.10.1"
+cfg-if = "1.0.0"
+
+[target.'cfg(target_arch = "x86_64")'.dependencies]
+x86_64 = "0.14.5"

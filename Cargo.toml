@@ -8,8 +8,8 @@ keywords = ["sanders", "s&ers", "os", "kernel", "system"]
 categories = ["embedded", "no-std", "os"]
 
 [workspace]
-members = [".", "utility_crates/*"]
-default-members = [".", "utility_crates/*"]
+members = [".", "crates/*", "utility_crates/*"]
+default-members = [".", "crates/*", "utility_crates/*"]
 
 [features]
 default = ["physical_page_tables", "linked_list_allocation"]
@@ -24,6 +24,7 @@ fixed_sized_allocation = ["linked_list_allocator"]
 
 [dependencies]
 # sanders dependencies
+privilege_level = { path = "crates/privilege_level", version = "0.1.0" }
 sanders_vga_buffer = { path = "utility_crates/vga_buffer", version = "0.1.0" }
 sanders_serial = { path = "utility_crates/serial", version = "0.1.0" }
 sanders_testing = { path = "utility_crates/testing", version = "0.1.0" }
