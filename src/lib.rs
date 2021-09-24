@@ -19,13 +19,9 @@ use bootloader::BootInfo;
 use core::panic::PanicInfo;
 
 #[cfg(test)]
-use bootloader::entry_point;
-
-#[cfg(debug_assertions)]
 use {
-    sanders_serial::serial_println,
-    sanders_testing::{exit_qemu, QemuExitCode},
-    sanders_vga_buffer::eprintln,
+    bootloader::entry_point,
+    sanders_testing::{exit_qemu, QemuExitCode}
 };
 
 #[cfg(test)]
@@ -49,8 +45,7 @@ pub fn init(boot_info: &'static BootInfo) {
 /// TODO(BSFishy): document this
 #[allow(unused_variables)]
 pub fn handle_panic(info: &PanicInfo) -> ! {
-    #[cfg(debug_assertions)]
-    eprintln!("{}", info); // TODO: handle this in a way that doesn't do this
+    log::error!("{}", info);
 
     interrupts::hlt_loop();
 }
@@ -58,11 +53,11 @@ pub fn handle_panic(info: &PanicInfo) -> ! {
 /// TODO(BSFishy): document this
 #[allow(unused_variables)]
 pub fn handle_test_panic(info: &PanicInfo) -> ! {
-    cfg_if::cfg_if! {
-        if #[cfg(debug_assertions)] {
-            serial_println!("failed");
-            serial_println!("Error: {}", info);
+    log::error!(target: "serial", "failed");
+    log::error!(target: "serial", "Error: {}", info);
 
+    cfg_if::cfg_if! {
+        if #[cfg(test)] {
             exit_qemu(QemuExitCode::Failed);
         } else {
             loop {}
