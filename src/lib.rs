@@ -59,15 +59,16 @@ pub fn handle_panic(info: &PanicInfo) -> ! {
 /// TODO(BSFishy): document this
 #[allow(unused_variables)]
 pub fn handle_test_panic(info: &PanicInfo) -> ! {
-    #[cfg(debug_assertions)]
-    serial_println!("failed");
-    #[cfg(debug_assertions)]
-    serial_println!("Error: {}", info);
+    cfg_if::cfg_if! {
+        if #[cfg(debug_assertions)] {
+            serial_println!("failed");
+            serial_println!("Error: {}", info);
 
-    #[cfg(debug_assertions)]
-    exit_qemu(QemuExitCode::Failed);
-
-    loop {}
+            exit_qemu(QemuExitCode::Failed);
+        } else {
+            loop {}
+        }
+    }
 }
 
 #[cfg(test)]
