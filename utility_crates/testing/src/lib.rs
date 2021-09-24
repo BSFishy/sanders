@@ -55,7 +55,7 @@ pub enum QemuExitCode {
 }
 
 /// TODO(BSFishy): document this
-pub fn exit_qemu(exit_code: QemuExitCode) {
+pub fn exit_qemu(exit_code: QemuExitCode) -> ! {
     cfg_if::cfg_if! {
         if #[cfg(target_arch = "x86_64")] {
             use x86_64::instructions::port::Port;
@@ -69,6 +69,7 @@ pub fn exit_qemu(exit_code: QemuExitCode) {
         }
     }
 
+    unreachable!("QEMU exit function did not exit");
 }
 
 /// TODO(BSFishy): document this
