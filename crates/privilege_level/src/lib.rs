@@ -136,15 +136,6 @@ pub enum PrivilegeLevel {
     User,
 }
 
-/// This is a test
-///
-/// # Example
-///
-/// ```rust
-/// fn main() {
-///     println!("here");
-/// }
-/// ```
 impl PrivilegeLevel {
     /// Gets the minimum privilege level.
     ///
