@@ -201,6 +201,22 @@ impl fmt::Write for Writer {
     }
 }
 
+/// TODO(BSFishy): document this
+#[macro_export]
+macro_rules! set_print_foreground {
+    ($c:expr) => {
+        $crate::WRITER.lock().set_foreground($c)
+    };
+}
+
+/// TODO(BSFishy): document this
+#[macro_export]
+macro_rules! set_print_background {
+    ($c:expr) => {
+        $crate::WRITER.lock().set_background($c)
+    };
+}
+
 // TODO: better implementation of print
 /// TODO(BSFishy): document this
 #[macro_export]
@@ -222,7 +238,7 @@ macro_rules! println {
 #[macro_export]
 macro_rules! eprint {
     ($($arg:tt)*) => {
-        $crate::WRITER.lock().set_foreground($crate::Color::Red);
+        $crate::set_print_foreground!($crate::Color::Red);
 
         $crate::print!($($arg)*);
     }
