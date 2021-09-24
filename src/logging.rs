@@ -1,7 +1,10 @@
 use log::{Metadata, Record};
 
 #[cfg(debug_assertions)]
-use sanders_vga_buffer::{println, set_print_foreground, Color as PrintColor};
+use {
+    sanders_serial::{serial_print, serial_println},
+    sanders_vga_buffer::{println, set_print_foreground, Color as PrintColor},
+};
 
 static LOGGER: KernelLogger = KernelLogger;
 
@@ -47,26 +50,43 @@ impl log::Log for KernelLogger {
                     return
                 }
 
-                match record.level() {
-                    log::Level::Trace | log::Level::Debug => {
-                        set_print_foreground!(PrintColor::LightGray);
+                match record.target() {
+                    "serial" => {
+                        match record.level() {
+                            log::Level::Info => {
+                                serial_println!("{}", record.args());
+                            },
+                            lvl => {
+                                serial_println!("{}: {}", lvl, record.args())
+                            }
+                        }
+                    },
+                    "serial_print" => {
+                        serial_print!("{}", record.args());
+                    },
+                    _ => {
+                        match record.level() {
+                            log::Level::Trace | log::Level::Debug => {
+                                set_print_foreground!(PrintColor::LightGray);
 
-                        println!("{}: {}", record.level(), record.args());
-                    }
-                    log::Level::Info => {
-                        set_print_foreground!(PrintColor::White);
+                                println!("{}: {}", record.level(), record.args());
+                            }
+                            log::Level::Info => {
+                                set_print_foreground!(PrintColor::White);
 
-                        println!("{}", record.args());
-                    }
-                    log::Level::Warn => {
-                        set_print_foreground!(PrintColor::Yellow);
+                                println!("{}", record.args());
+                            }
+                            log::Level::Warn => {
+                                set_print_foreground!(PrintColor::Yellow);
 
-                        println!("{}: {}", record.level(), record.args());
-                    }
-                    log::Level::Error => {
-                        set_print_foreground!(PrintColor::Red);
+                                println!("{}: {}", record.level(), record.args());
+                            }
+                            log::Level::Error => {
+                                set_print_foreground!(PrintColor::Red);
 
-                        println!("{}: {}", record.level(), record.args());
+                                println!("{}: {}", record.level(), record.args());
+                            }
+                        }
                     }
                 }
             } else {
