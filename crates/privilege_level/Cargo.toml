@@ -9,7 +9,8 @@ categories = ["embedded", "hardware-support", "no-std"]
 documentation = "https://docs.rs/privilege_level"
 homepage = "https://github.com/BSFishy/sanders/tree/develop/crates/privilege_level"
 repository = "https://github.com/BSFishy/sanders/"
-license-file = "../../LICENSE"
+readme = "readme.md"
+license = "MIT"
 
 [dependencies]
 bit_field = "0.10.1"
