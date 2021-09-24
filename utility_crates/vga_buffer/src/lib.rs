@@ -35,8 +35,6 @@ fn panic(info: &PanicInfo) -> ! {
     serial_println!("Error: {}", info);
 
     exit_qemu(QemuExitCode::Failed);
-
-    loop {}
 }
 
 /// TODO(BSFishy): document this
