@@ -15,7 +15,7 @@ pub extern "C" fn _start() -> ! {
     serial_println!("Running 1 tests");
     serial_print!("test stack_overflow::stack_overflow ... ");
 
-    sanders::gdt::init();
+    sanders::memory::gdt::init();
     init_test_idt();
 
     // trigger a stack overflow
@@ -41,7 +41,7 @@ lazy_static! {
         unsafe {
             idt.double_fault
                 .set_handler_fn(test_double_fault_handler)
-                .set_stack_index(sanders::gdt::DOUBLE_FAULT_IST_INDEX);
+                .set_stack_index(sanders::memory::gdt::DOUBLE_FAULT_IST_INDEX);
         }
 
         idt
@@ -58,5 +58,4 @@ extern "x86-interrupt" fn test_double_fault_handler(
 ) -> ! {
     serial_println!("ok");
     exit_qemu(QemuExitCode::Success);
-    loop {}
 }

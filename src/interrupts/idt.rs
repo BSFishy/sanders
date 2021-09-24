@@ -2,16 +2,14 @@
 //! NOTE: it is important to keep in mind possible deadlocks in the functions in this file.
 //! TODO: convert this module into an abstraction layer in front of architecture-specific code
 
-use crate::{
-    gdt,
-    interrupts::{hlt_loop, pic},
-};
 use lazy_static::lazy_static;
-
 use x86_64::structures::idt::{InterruptDescriptorTable, InterruptStackFrame, PageFaultErrorCode};
 
 #[cfg(debug_assertions)]
 use sanders_vga_buffer::println;
+
+use crate::interrupts::{hlt_loop, pic};
+use crate::memory::gdt;
 
 lazy_static! {
     static ref IDT: InterruptDescriptorTable = { // TODO: handle all the other interrupts

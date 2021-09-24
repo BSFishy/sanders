@@ -11,10 +11,16 @@ use x86_64::{
 use {lazy_static::lazy_static, spin::Mutex};
 
 pub mod allocator;
+pub mod gdt;
 
 #[cfg(debug_assertions)]
 lazy_static! {
     static ref INITIALIZED: Mutex<bool> = Mutex::new(false);
+}
+
+/// TODO(BSFishy): document this
+pub fn pre_init() {
+    gdt::init();
 }
 
 /// TODO(BSFishy): document this

@@ -18,6 +18,9 @@ extern crate alloc;
 use bootloader::BootInfo;
 use core::panic::PanicInfo;
 
+#[cfg(test)]
+use bootloader::entry_point;
+
 #[cfg(debug_assertions)]
 use {
     sanders_serial::serial_println,
@@ -26,12 +29,8 @@ use {
 };
 
 #[cfg(test)]
-use bootloader::entry_point;
-
-#[cfg(test)]
 entry_point!(test_kernel_main);
 
-pub mod gdt;
 pub mod interrupts;
 
 pub mod ipc;
@@ -40,7 +39,7 @@ pub mod process;
 
 /// TODO(BSFishy): document this
 pub fn init(boot_info: &'static BootInfo) {
-    gdt::init();
+    memory::pre_init();
     interrupts::init();
     interrupts::enable();
 
