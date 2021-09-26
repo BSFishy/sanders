@@ -24,6 +24,7 @@ fixed_sized_allocation = ["linked_list_allocator"]
 
 [dependencies]
 # sanders dependencies
+pit8253 = { path = "crates/pit8253", version = "0.1.0" }
 privilege_level = { path = "crates/privilege_level", version = "0.1.0" }
 sanders_vga_buffer = { path = "utility_crates/vga_buffer", version = "0.1.0" }
 sanders_serial = { path = "utility_crates/serial", version = "0.1.0" }

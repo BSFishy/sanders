@@ -78,6 +78,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "pit8253"
+version = "0.1.0"
+dependencies = [
+ "spin 0.9.2",
+ "x86_64",
+]
+
+[[package]]
 name = "privilege_level"
 version = "0.1.1"
 dependencies = [
@@ -97,6 +105,7 @@ dependencies = [
  "log",
  "pc-keyboard",
  "pic8259",
+ "pit8253",
  "privilege_level",
  "sanders_serial",
  "sanders_testing",
