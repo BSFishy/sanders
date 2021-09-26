@@ -1,5 +1,10 @@
 # privilege_level
 
+[![License](https://img.shields.io/github/license/BSFishy/sanders)](https://github.com/BSFishy/sanders/blob/develop/LICENSE)
+[![Build status](https://img.shields.io/github/workflow/status/BSFishy/sanders/Build?logo=github-actions&logoColor=white)](https://github.com/BSFishy/sanders/actions/workflows/build.yml)
+[![Version](https://img.shields.io/crates/v/privilege_level?logo=rust)](https://crates.io/crates/privilege_level)
+[![Downloads](https://img.shields.io/crates/d/privilege_level?logo=rust)](https://crates.io/crates/privilege_level)
+
 This crate is a quick and simple tool to fetch the current privilege level of the CPU.
 The main use case of this is probably in kernels, where you might need to know what your privilege level is so that you can do different things depending on what it is.
 
