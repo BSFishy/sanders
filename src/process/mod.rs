@@ -1,20 +1,21 @@
 //! TODO(BSFishy): document this
 
 /// TODO(BSFishy): document this
-#[derive(Debug, Copy, Clone, Ord, PartialOrd, Eq, PartialEq)]
-pub enum ProcessStatus {
+pub struct Task {
+    // Intel Architectures Software Developer's Manual, Volume 3a, sect. 7.1.1
+    // needs task execution space & task-state segment
+}
+
+impl Task {
     /// TODO(BSFishy): document this
-    WaitingForStart = 0,
-    /// TODO(BSFishy): document this
-    Waiting,
-    /// TODO(BSFishy): document this
-    Running,
+    pub fn suspend(&self) {
+        todo!()
+    }
 }
 
 /// TODO(BSFishy): document this
-pub struct Process {
-    status: ProcessStatus,
-    ebp: u32,
-    esp: u32,
-    pointer: fn(),
+pub struct TaskManager {
+
 }
+
+
