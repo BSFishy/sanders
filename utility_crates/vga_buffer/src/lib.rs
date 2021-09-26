@@ -203,7 +203,7 @@ impl fmt::Write for Writer {
 #[macro_export]
 macro_rules! set_print_foreground {
     ($c:expr) => {
-        $crate::WRITER.lock().set_foreground($c)
+        $crate::_set_foreground($c);
     };
 }
 
@@ -211,7 +211,7 @@ macro_rules! set_print_foreground {
 #[macro_export]
 macro_rules! set_print_background {
     ($c:expr) => {
-        $crate::WRITER.lock().set_background($c)
+        $crate::_set_background($c);
     };
 }
 
@@ -247,6 +247,36 @@ macro_rules! eprint {
 macro_rules! eprintln {
     () => ($crate::eprint!("\n"));
     ($($arg:tt)*) => ($crate::eprint!("{}\n", core::format_args!($($arg)*)));
+}
+
+#[doc(hidden)]
+pub fn _set_foreground(color: Color) {
+    cfg_if::cfg_if! {
+        if #[cfg(target_arch = "x86_64")] {
+            use x86_64::instructions::interrupts;
+
+            interrupts::without_interrupts(|| {
+                WRITER.lock().set_foreground(color);
+            });
+        } else {
+            compile_error!("Unsupported architecture");
+        }
+    }
+}
+
+#[doc(hidden)]
+pub fn _set_background(color: Color) {
+    cfg_if::cfg_if! {
+        if #[cfg(target_arch = "x86_64")] {
+            use x86_64::instructions::interrupts;
+
+            interrupts::without_interrupts(|| {
+                WRITER.lock().set_background(color);
+            });
+        } else {
+            compile_error!("Unsupported architecture");
+        }
+    }
 }
 
 #[doc(hidden)]
