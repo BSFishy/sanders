@@ -1,5 +1,8 @@
 # s&ers
 
+[![License](https://img.shields.io/github/license/BSFishy/sanders)](https://github.com/BSFishy/sanders/blob/develop/LICENSE)
+[![Build status](https://img.shields.io/github/workflow/status/BSFishy/sanders/Build?logo=github-actions&logoColor=white)](https://github.com/BSFishy/sanders/actions/workflows/build.yml)
+
 s&ers is a [microkernel](https://en.wikipedia.org/wiki/Microkernel) written in [Rust](https://www.rust-lang.org/).
 Its goal is to be simple, secure, and very fast.
 
