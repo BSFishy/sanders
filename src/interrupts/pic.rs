@@ -5,7 +5,6 @@ use pic8259::ChainedPics;
 use spin;
 use x86_64::structures::idt::{InterruptDescriptorTable, InterruptStackFrame};
 
-#[cfg(debug_assertions)]
 use lazy_static::lazy_static;
 
 /// TODO(BSFishy): document this
