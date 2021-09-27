@@ -27,8 +27,8 @@ use {
 #[cfg(test)]
 entry_point!(test_kernel_main);
 
+pub mod arch;
 pub mod interrupts;
-
 pub mod ipc;
 pub mod memory;
 pub mod process;
