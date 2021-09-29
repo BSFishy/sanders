@@ -1,6 +1,6 @@
 //! TODO(BSFishy): document this
 
-use core::ptr::{addr_of, addr_of_mut};
+use core::{default::Default, ptr::{addr_of, addr_of_mut}};
 
 /// TODO(BSFishy): document this
 #[derive(Debug, Copy, Clone, Ord, PartialOrd, Eq, PartialEq)]
@@ -27,6 +27,26 @@ pub struct TaskContext {
     ebx: u32,
     ebp: u32,
     eip: u32,
+}
+
+impl TaskContext {
+    /// TODO(BSFishy): document this
+    pub fn new() -> TaskContext {
+        TaskContext::default()
+    }
+}
+
+impl Default for TaskContext {
+    #[inline]
+    fn default() -> TaskContext {
+        TaskContext {
+            edi: 0,
+            esi: 0,
+            ebx: 0,
+            ebp: 0,
+            eip: 0, // TODO: set this to something like forkret
+        }
+    }
 }
 
 extern "C" fn safe_switch_task<'a, 'b>(old: &'a TaskContext, new: &'b TaskContext) -> &'a TaskContext {
