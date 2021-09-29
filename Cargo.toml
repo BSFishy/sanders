@@ -51,6 +51,7 @@ pic8259 = "0.10.2" # TODO: also add support for apic
 uart_16550 = "0.2.15"
 
 [target.'cfg(target_arch = "x86_64")'.dependencies]
+x86 = "0.42.0"
 x86_64 = "0.14.5"
 
 [lib]
