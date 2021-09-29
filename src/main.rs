@@ -17,6 +17,12 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
 
     log::info!("Started!"); // TODO: do something other than this
 
+    x86_64::instructions::interrupts::without_interrupts(|| {
+        use sanders::arch::CPU;
+        let cpu = sanders::arch::get_cpu();
+        log::info!("id: {}", cpu.id());
+    });
+
     interrupts::hlt_loop();
 }
 
