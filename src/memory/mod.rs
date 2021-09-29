@@ -3,7 +3,7 @@
 
 use bootloader::BootInfo;
 use x86_64::{
-    structures::paging::{OffsetPageTable, PageTable},
+    structures::paging::{Page, PhysFrame, PageTableFlags, OffsetPageTable, PageTable, Mapper, FrameAllocator, Size4KiB},
     PhysAddr, VirtAddr,
 };
 
@@ -36,9 +36,24 @@ pub fn init(boot_info: &'static BootInfo) {
     let mut frame_allocator =
         unsafe { allocator::BootInfoFrameAllocator::init(&boot_info.memory_map) };
 
+    // TODO: detect if we need to map this memory or map it somewhere else
+    init_apic_memory(&mut mapper, &mut frame_allocator);
+
     allocator::init_heap(&mut mapper, &mut frame_allocator).expect("heap initialization failed");
 
     log::debug!("Successfully initialized memory");
+}
+
+fn init_apic_memory(mapper: &mut impl Mapper<Size4KiB>, frame_allocator: &mut impl FrameAllocator<Size4KiB>) {
+    let addr = unsafe { x86::msr::rdmsr(x86::msr::IA32_APIC_BASE) };
+    let virt_addr = VirtAddr::new(addr);
+    let phys_addr = PhysAddr::new(addr);
+
+    let page = Page::containing_address(virt_addr);
+    let frame = PhysFrame::containing_address(phys_addr);
+    let flags = PageTableFlags::PRESENT | PageTableFlags::WRITABLE | PageTableFlags::NO_CACHE | PageTableFlags::NO_EXECUTE;
+
+    unsafe { mapper.map_to(page, frame, flags, frame_allocator) }.expect("Unable to map page").flush();
 }
 
 /// Initialize a new OffsetPageTable.
