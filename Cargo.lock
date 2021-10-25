@@ -78,20 +78,21 @@ dependencies = [
 ]
 
 [[package]]
-name = "pit8253"
-version = "0.1.0"
-dependencies = [
- "spin 0.9.2",
- "x86_64",
-]
-
-[[package]]
 name = "privilege_level"
 version = "0.1.1"
 dependencies = [
  "bit_field",
  "cfg-if",
  "x86_64",
+]
+
+[[package]]
+name = "raw-cpuid"
+version = "10.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "929f54e29691d4e6a9cc558479de70db7aa3d98cd6fe7ab86d7507aa2886b9d2"
+dependencies = [
+ "bitflags",
 ]
 
 [[package]]
@@ -105,50 +106,11 @@ dependencies = [
  "log",
  "pc-keyboard",
  "pic8259",
- "pit8253",
  "privilege_level",
- "sanders_serial",
- "sanders_testing",
- "sanders_vga_buffer",
  "spin 0.9.2",
  "uart_16550",
  "volatile 0.2.7",
- "x86_64",
-]
-
-[[package]]
-name = "sanders_serial"
-version = "0.1.0"
-dependencies = [
- "cfg-if",
- "lazy_static",
- "spin 0.9.2",
- "uart_16550",
- "x86_64",
-]
-
-[[package]]
-name = "sanders_testing"
-version = "0.1.0"
-dependencies = [
- "bootloader",
- "cfg-if",
- "sanders_serial",
- "x86_64",
-]
-
-[[package]]
-name = "sanders_vga_buffer"
-version = "0.1.0"
-dependencies = [
- "bootloader",
- "cfg-if",
- "lazy_static",
- "sanders_serial",
- "sanders_testing",
- "spin 0.9.2",
- "volatile 0.2.7",
- "x86_64",
+ "x86",
 ]
 
 [[package]]
@@ -202,6 +164,17 @@ name = "volatile"
 version = "0.4.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e4c2dbd44eb8b53973357e6e207e370f0c1059990df850aca1eca8947cf464f0"
+
+[[package]]
+name = "x86"
+version = "0.43.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1e85eb056bbe47f56d75dc0ccc5fe9c12211ed141292f4d7485d2a7c3dedda09"
+dependencies = [
+ "bit_field",
+ "bitflags",
+ "raw-cpuid",
+]
 
 [[package]]
 name = "x86_64"

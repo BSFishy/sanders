@@ -8,8 +8,8 @@ keywords = ["sanders", "s&ers", "os", "kernel", "system"]
 categories = ["embedded", "no-std", "os"]
 
 [workspace]
-members = [".", "crates/*", "utility_crates/*"]
-default-members = [".", "crates/*", "utility_crates/*"]
+members = [".", "crates/*"]
+default-members = [".", "crates/*"]
 
 [features]
 default = ["physical_page_tables", "linked_list_allocation"]
@@ -26,11 +26,7 @@ fixed_sized_allocation = ["linked_list_allocator"]
 
 [dependencies]
 # sanders dependencies
-pit8253 = { path = "crates/pit8253", version = "0.1.0" }
 privilege_level = { path = "crates/privilege_level", version = "0.1.0" }
-sanders_vga_buffer = { path = "utility_crates/vga_buffer", version = "0.1.0" }
-sanders_serial = { path = "utility_crates/serial", version = "0.1.0" }
-sanders_testing = { path = "utility_crates/testing", version = "0.1.0" }
 
 # utility dependencies
 bootloader = "0.9.19" # anything higher than this version causes an error with bootimage
@@ -50,8 +46,9 @@ volatile = "0.2.7"
 pic8259 = "0.10.2" # TODO: also add support for apic
 uart_16550 = "0.2.15"
 
-[target.'cfg(target_arch = "x86_64")'.dependencies]
-x86_64 = "0.14.5"
+[target.'cfg(any(target_arch = "x86_64", target_arch = "x86"))'.dependencies]
+#x86_64 = "0.14.5"
+x86 = "0.43.0"
 
 [lib]
 test = true
@@ -62,9 +59,9 @@ name = "sanders"
 test = false
 bench = false
 
-[[test]]
-name = "stack_overflow"
-harness = false
+#[[test]]
+#name = "stack_overflow"
+#harness = false
 
 [profile.dev]
 # This can be uncommended when this issue is resolved: https://github.com/rust-lang/cargo/issues/7359
