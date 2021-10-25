@@ -20,6 +20,11 @@ use bootloader::BootInfo;
 //     bootloader::entry_point
 // };
 
+pub mod arch;
+pub mod ipc;
+pub mod memory;
+pub mod multitasking;
+
 #[cfg(test)]
 mod testing;
 
@@ -49,7 +54,7 @@ pub fn run() -> ! {
 //
 // pub mod interrupts;
 //
-// pub mod ipc;
+// pub mod multitasking;
 // pub mod memory;
 // pub mod process;
 //
