@@ -6,12 +6,32 @@
 #![feature(alloc_error_handler)]
 // #![feature(const_mut_refs)]
 #![feature(custom_test_frameworks)]
-#![test_runner(sanders_testing::test_runner)]
+#![test_runner(testing::test_runner)]
 #![reexport_test_harness_main = "test_main"]
 #![allow(dead_code)]
 #![allow(clippy::empty_loop)]
 #![deny(missing_docs)]
 #![deny(missing_doc_code_examples)]
+
+use bootloader::BootInfo;
+
+// #[cfg(test)]
+// use {
+//     bootloader::entry_point
+// };
+
+#[cfg(test)]
+mod testing;
+
+/// TODO(BSFishy): document this
+pub fn init(_info: &'static BootInfo) {
+
+}
+
+/// TODO(BSFishy): document this
+pub fn run() -> ! {
+    loop {}
+}
 
 // extern crate alloc;
 //
