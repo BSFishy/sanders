@@ -24,6 +24,7 @@ pub mod arch;
 pub mod ipc;
 pub mod memory;
 pub mod multitasking;
+pub mod system;
 
 #[cfg(test)]
 mod testing;
