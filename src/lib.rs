@@ -13,12 +13,13 @@
 #![deny(missing_docs)]
 #![deny(missing_doc_code_examples)]
 
+// extern crate alloc;
+
+use core::alloc::GlobalAlloc;
+use core::ptr::slice_from_raw_parts;
 use bootloader::BootInfo;
 
-// #[cfg(test)]
-// use {
-//     bootloader::entry_point
-// };
+pub mod logging;
 
 pub mod arch;
 pub mod ipc;
@@ -29,13 +30,134 @@ pub mod system;
 #[cfg(test)]
 mod testing;
 
-/// TODO(BSFishy): document this
-pub fn init(_info: &'static BootInfo) {
+#[doc(inline)]
+pub use arch::get_system;
 
+#[doc(inline)]
+pub use system::System;
+
+/// TODO(BSFishy): document this
+pub fn init(boot_info: &'static BootInfo) {
+    logging::prepare_logger();
+
+    // Prepare the system before the individual modules are initialized.
+    // This allows for architecture-specific initialization to occur that is
+    // necessary for the individual modules to be initialized. For example,
+    // certain registers or tables might need to be set up before initialization
+    // can occur.
+    let sys = get_system();
+    sys.prepare();
+
+    // Initialize all of the individual modules with any necessary information
+    // they might need.
+    memory::init(boot_info);
+    multitasking::init(boot_info);
+    ipc::init(boot_info);
+
+    // TODO: initialize drivers somewhere, probably around here
+
+    // Allow the architecture-specific system to initialize itself. This allows
+    // for any architecture-specific preparations or initializations to be made.
+    // For example, certain registers or tables might need to be set up for a
+    // proper running environment.
+    sys.init(boot_info);
+
+    log::trace!("Initialized");
 }
 
 /// TODO(BSFishy): document this
 pub fn run() -> ! {
+    // {
+    //     use x86_64::registers::control::Cr3;
+    //
+    //     let (frame1, flags) = Cr3::read();
+    //     let (frame2, pcid) = Cr3::read_pcid();
+    //     log::info!("Running!");
+    //     log::info!("read: {:?}, {:?}", frame1, flags);
+    //     log::info!("read_pcid: {:?}, {:?}", frame2, pcid);
+    // }
+
+    // {
+    //     use x86::apic::ApicControl;
+    //     use crate::arch::x86_64::Apic;
+    //
+    //     let apic = Apic::get();
+    //     if let Some(apic) = apic {
+    //         log::info!("Got xapic!");
+    //         log::info!("Id: {}", apic.id());
+    //         log::info!("Logical id: {}", apic.logical_id());
+    //         log::info!("Version: {}", apic.version());
+    //         log::info!("BSP: {}", apic.bsp());
+    //     } else {
+    //         log::warn!("No xapic found!");
+    //     }
+    // }
+
+    // {
+    //     use core::alloc::Layout;
+    //     use crate::memory::ALLOCATOR;
+    //
+    //     #[derive(Debug)]
+    //     struct Example {
+    //         a: i32
+    //     }
+    //
+    //     let layout = Layout::new::<Example>();
+    //     let address = unsafe { ALLOCATOR.alloc(layout) };
+    //     log::info!("Allocated: {:p}", address);
+    //     // let type_address = address as *mut Example;
+    //     // let heap = unsafe { &mut *type_address };
+    //     // heap.a = 10;
+    //     //
+    //     // log::info!("{:?}", heap);
+    //
+    //     unsafe { ALLOCATOR.dealloc(address, layout) };
+    //
+    //     log::info!("Deallocated");
+    // }
+
+    // {
+    //     use x86_64::instructions::segmentation::Segment;
+    //     use x86_64::registers::segmentation::DS;
+    //     use x86_64::instructions::tables::sgdt;
+    //     use x86_64::structures::gdt::{GlobalDescriptorTable, DescriptorFlags};
+    //     use core::{ptr::slice_from_raw_parts_mut, mem::size_of};
+    //     use bit_field::BitField;
+    //
+    //     let ds = DS::get_reg();
+    //     log::info!("DS: {}, {:?}", ds.index(), ds.rpl());
+    //
+    //     let gdt_descriptor = sgdt();
+    //     log::info!("GDT: {:?}", gdt_descriptor);
+    //     let next_free = (gdt_descriptor.limit + 1) as usize / size_of::<u64>();
+    //     log::info!("GDT next_free: {}", next_free);
+    //     let limit = (3 * size_of::<u64>() - 1) as u16;
+    //     log::info!("GDT limit: {}", limit);
+    //
+    //     let gdt_slice = slice_from_raw_parts(gdt_descriptor.base.as_ptr::<u64>(), next_free);
+    //     let gdt_slice = unsafe { gdt_slice.as_ref() }.unwrap();
+    //
+    //     let mut gdt_iter = gdt_slice.iter();
+    //     loop {
+    //         match gdt_iter.next() {
+    //             Some(value) => {
+    //                 if value.get_bits(40..44) == 0b1001 {
+    //                     log::info!("\tSystem segment");
+    //                 } else {
+    //                     let flags = DescriptorFlags::from_bits(*value);
+    //                     log::info!("\tFlags: 0x{:X} {:?}", value, flags);
+    //                 }
+    //             },
+    //             None => break,
+    //         }
+    //     }
+    //
+    //     // let gdt = unsafe { GlobalDescriptorTable::from_raw_slice(gdt_slice) };
+    //
+    // }
+
+    log::info!("Started!");
+
     loop {}
 }
 

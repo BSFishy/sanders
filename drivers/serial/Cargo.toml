@@ -1,0 +1,22 @@
+[package]
+name = "sanders_serial"
+version = "0.1.0"
+description = "Access to the serial port, used in testing s&ers"
+authors = ["Matt Provost <mattprovost6@gmail.com>"]
+edition = "2021"
+keywords = ["sanders", "s&ers", "serial", "serial port", "serial communication"]
+categories = ["development-tools::debugging", "hardware-support", "no-std"]
+
+[lib]
+test = false
+doctest = false
+bench = false
+
+[dependencies]
+cfg-if = "1.0.0"
+lazy_static = { version = "1.4.0", features = ["spin_no_std"] }
+spin = "0.9.2"
+uart_16550 = "0.2.15"
+
+[target.'cfg(any(target_arch = "x86_64", target_arch = "x86"))'.dependencies]
+x86_64 = "0.14.6"

@@ -99,6 +99,8 @@ dependencies = [
 name = "sanders"
 version = "0.1.0"
 dependencies = [
+ "bit_field",
+ "bitflags",
  "bootloader",
  "cfg-if",
  "lazy_static",
@@ -107,10 +109,35 @@ dependencies = [
  "pc-keyboard",
  "pic8259",
  "privilege_level",
+ "sanders_serial",
+ "sanders_vga_buffer",
  "spin 0.9.2",
  "uart_16550",
  "volatile 0.2.7",
  "x86",
+ "x86_64",
+]
+
+[[package]]
+name = "sanders_serial"
+version = "0.1.0"
+dependencies = [
+ "cfg-if",
+ "lazy_static",
+ "spin 0.9.2",
+ "uart_16550",
+ "x86_64",
+]
+
+[[package]]
+name = "sanders_vga_buffer"
+version = "0.1.0"
+dependencies = [
+ "cfg-if",
+ "lazy_static",
+ "sanders_serial",
+ "spin 0.9.2",
+ "volatile 0.2.7",
  "x86_64",
 ]
 

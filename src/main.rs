@@ -7,14 +7,16 @@ use sanders::{init, run};
 
 entry_point!(kernel_main);
 
-fn kernel_main(info: &'static BootInfo) -> ! {
-    init(info);
+fn kernel_main(boot_info: &'static BootInfo) -> ! {
+    init(boot_info);
 
     run();
 }
 
 #[panic_handler]
-fn handle_panic(_info: &PanicInfo) -> !{
+fn handle_panic(info: &PanicInfo) -> ! {
+    log::error!("{}", info);
+
     loop {}
 }
 
