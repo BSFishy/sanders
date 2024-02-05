@@ -1,5 +1,10 @@
 # s&ers
 
+> :warning: **s&ers is currently on hold.** :warning:
+> I really like the idea I've come up with, however I don't have the time to be working on it right now.
+> Eventually, I will come back to it, but for now, it's on hold.
+> If you're interested in the project, feel free to reach out to me and I can give you more information about it.
+
 s&ers is a [microkernel](https://en.wikipedia.org/wiki/Microkernel) written in [Rust](https://www.rust-lang.org/).
 Its goal is to be simple, secure, and very fast.
 
@@ -38,6 +43,7 @@ The easiest way to achieve this is through [rustup](https://rustup.rs/).
 rustup is a program that makes it easy and fast to manage multiple Rust installations.
 
 In order to install Rust nightly along with all the necessary components, simply run the following:
+
 ```commandline
 ~$ rustup update
 ```
@@ -49,11 +55,13 @@ From there, you should be able to use s&ers!
 s&ers uses the [`bootimage`](https://crates.io/crates/bootimage) crate to generate bootable executables.
 You will need to install it first if you plan on building a bootable image.
 This is extremely simple, and all you need to do is run the following:
+
 ```commandline
 ~$ cargo install bootimage
 ```
 
 To build s&ers into a bootable binary, you can simply run the following:
+
 ```commandline
 ~$ cargo bootimage
 ```
@@ -61,6 +69,7 @@ To build s&ers into a bootable binary, you can simply run the following:
 This will build s&ers in `target/x86_64-unknown-none/debug/bootimage-sanders.bin`.
 This is a full-fat x86_64 binary that can be booted from.
 You can then boot from it in a virtual machine or burn it to a USB using the following command (on Linux):
+
 ```commandline
 ~$ dd if=target/x86_64-unknown-none/debug/bootimage-sanders.bin of=/dev/sdX && sync
 ```
@@ -72,8 +81,9 @@ Where `sdX` is your USB device.
 
 Release builds can also be generated using Cargo.
 These are builds that have more aggressive optimizations and are better suited for actual real-world usage.
-*Again, s&ers is quite early in development, so it is recommended to not use it in the real world.*
+_Again, s&ers is quite early in development, so it is recommended to not use it in the real world._
 To generate a release build, simply run the following:
+
 ```commandline
 ~$ cargo bootimage --release
 ```
@@ -88,6 +98,7 @@ We don't even need to create a build before we run it (although the run command 
 Just keep in mind that running, by default, uses the `bootimage` crate, which is described in the [Building](#building) section.
 
 To run s&ers in a virtual machine, using QEMU, run the following:
+
 ```commandline
 ~$ cargo run
 ```
@@ -99,6 +110,7 @@ This will build s&ers, generate a bootable disk image, then run QEMU using the g
 Testing, similar to [running](#running), can be taken care of by Cargo.
 Our configuration will automatically include all unit tests and integration tests, start them all in headless QEMU instances, and return the result.
 To run these tests, simply run the following:
+
 ```commandline
 ~$ cargo test
 ```
