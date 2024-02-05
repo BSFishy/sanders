@@ -1,0 +1,12 @@
+[package]
+name = "multitasking"
+version = "0.1.0"
+description = "Sanders multitasking subsystem"
+authors = ["Matt Provost <mattprovost6@gmail.com>"]
+edition = "2021"
+keywords = ["sanders", "s&ers", "multitasking", "multithreading", "threads"]
+build = "../../build.rs"
+
+[dependencies]
+bootloader = "0.9.19"
+log = "0.4.14"

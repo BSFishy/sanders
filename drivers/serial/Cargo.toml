@@ -1,5 +1,5 @@
 [package]
-name = "sanders_serial"
+name = "serial"
 version = "0.1.0"
 description = "Access to the serial port, used in testing s&ers"
 authors = ["Matt Provost <mattprovost6@gmail.com>"]

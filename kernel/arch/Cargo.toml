@@ -1,0 +1,16 @@
+[package]
+name = "arch"
+version = "0.1.0"
+description = "Sanders architecture-specific code"
+authors = ["Matt Provost <mattprovost6@gmail.com>"]
+edition = "2021"
+keywords = ["sanders", "s&ers", "architecture"]
+build = "../../build.rs"
+
+[dependencies]
+system = { path = "../system" }
+
+cfg-if = "1.0.0"
+
+[target.'cfg(any(target_arch = "x86", target_arch = "x86_64"))'.dependencies]
+arch_x86 = { path = "../arch_x86" }

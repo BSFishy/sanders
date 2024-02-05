@@ -1,0 +1,15 @@
+[package]
+name = "arch_x86"
+version = "0.1.0"
+description = "s&ers x86 architecture-specific code"
+authors = ["Matt Provost <mattprovost6@gmail.com>"]
+edition = "2021"
+keywords = ["sanders", "s&ers", "86_64", "architecture"]
+build = "../../build.rs"
+
+[dependencies]
+system = { path = "../system" }
+
+log = "0.4.14"
+x86 = "0.43.0"
+x86_64 = "0.14.6"

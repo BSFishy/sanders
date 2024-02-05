@@ -1,0 +1,10 @@
+[package]
+name = "heap"
+version = "0.1.0"
+description = "Sanders heap allocation"
+authors = ["Matt Provost <mattprovost6@gmail.com>"]
+edition = "2021"
+keywords = ["sanders", "s&ers", "heap", "memory", "allocation"]
+build = "../../build.rs"
+
+[dependencies]

@@ -1,0 +1,15 @@
+[package]
+name = "memory_constants"
+version = "0.1.0"
+description = "s&ers memory free area types"
+authors = ["Matt Provost <mattprovost6@gmail.com>"]
+edition = "2021"
+rust-version = "1.57"
+keywords = ["sanders", "s&ers", "memory", "free_area"]
+build = "../../build.rs"
+
+[features]
+default = []
+
+[dependencies]
+cfg-if = "1.0.0"

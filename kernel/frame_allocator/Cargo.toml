@@ -1,0 +1,14 @@
+[package]
+name = "frame_allocator"
+version = "0.1.0"
+description = "Sanders page frame allocator"
+authors = ["Matt Provost <mattprovost6@gmail.com>"]
+edition = "2021"
+keywords = ["sanders", "s&ers", "memory", "frame", "allocation"]
+build = "../../build.rs"
+
+[features]
+default = []
+
+[dependencies]
+memory_constants = { path = "../memory_constants" }

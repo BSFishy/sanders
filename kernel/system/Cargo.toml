@@ -1,0 +1,11 @@
+[package]
+name = "system"
+version = "0.1.0"
+description = "Sanders architecture-independent system interfacing"
+authors = ["Matt Provost <mattprovost6@gmail.com>"]
+edition = "2021"
+keywords = ["sanders", "s&ers", "system", "hardware", "interface"]
+build = "../../build.rs"
+
+[dependencies]
+bootloader = "0.9.19"

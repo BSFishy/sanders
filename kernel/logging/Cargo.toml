@@ -1,0 +1,15 @@
+[package]
+name = "logging"
+version = "0.1.0"
+description = "Sanders logging utilities"
+authors = ["Matt Provost <mattprovost6@gmail.com>"]
+edition = "2021"
+keywords = ["sanders", "s&ers", "logging", "logger", "utilities"]
+build = "../../build.rs"
+
+[dependencies]
+serial = { path = "../../drivers/serial" }
+vga_buffer = { path = "../../drivers/vga_buffer" }
+
+cfg-if = "1.0.0"
+log = "0.4.14"

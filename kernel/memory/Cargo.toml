@@ -1,0 +1,16 @@
+[package]
+name = "memory"
+version = "0.1.0"
+description = "Sanders memory subsystem"
+authors = ["Matt Provost <mattprovost6@gmail.com>"]
+edition = "2021"
+keywords = ["sanders", "s&ers", "memory", "ram", "heap"]
+build = "../../build.rs"
+
+[dependencies]
+arch = { path = "../arch" }
+frame_allocator = { path = "../frame_allocator" }
+system = { path = "../system" }
+
+bootloader = { version = "0.9.19", features = ["map_physical_memory"] }
+log = "0.4.14"

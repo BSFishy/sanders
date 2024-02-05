@@ -1,0 +1,16 @@
+[package]
+name = "per_cpu"
+version = "0.1.0"
+description = "Sanders utility to have a different object on each CPU core"
+authors = ["Matt Provost <mattprovost6@gmail.com>"]
+edition = "2021"
+keywords = ["sanders", "s&ers", "cpu"]
+build = "../../build.rs"
+
+[features]
+default = []
+
+smp = []
+
+[dependencies]
+cfg-if = "1.0.0"

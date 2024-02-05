@@ -1,0 +1,10 @@
+[package]
+name = "page_allocator"
+version = "0.1.0"
+description = "Sanders page allocator"
+authors = ["Matt Provost <mattprovost6@gmail.com>"]
+edition = "2021"
+keywords = ["sanders", "s&ers", "memory", "page", "allocation"]
+build = "../../build.rs"
+
+[dependencies]
